@@ -1,6 +1,7 @@
 package org.message.transfer.socketchannel;
 
 import org.message.transfer.endpoint.Client;
+import org.message.transfer.util.BufferUtil;
 import org.message.transfer.util.ClientUtil;
 
 import java.io.IOException;
@@ -43,11 +44,8 @@ public class SocketChannelClient implements Client {
             buffer.flip();
 
             if (buffer.hasRemaining()) {
-                //Note: Don't use buffer.array()
-                //Because buffer.clear() would not actually clear the buffer, just move the limit, buffer.array is not accurate
-                byte[] bytes = new byte[buffer.limit()];
-                buffer.get(bytes);
-                return new String(bytes);
+              return BufferUtil.decode(buffer);
+
             }
         }
     }
@@ -61,8 +59,8 @@ public class SocketChannelClient implements Client {
         try {
             Client client = new SocketChannelClient("127.0.0.1", 7890);
 
-//            ClientUtil.greeting(client);
-            ClientUtil.shutdown(client);
+            ClientUtil.greeting(client);
+//            ClientUtil.shutdown(client);
 
             client.close();
         } catch (Exception e) {
