@@ -3,6 +3,9 @@
 ## Descritpion 
 This project contains different examples to tranfer message, includes:
 
-- socket
-- channel 
-    - socketChannel
+- Socket
+- Channel 
+    - SocketChannel
+    - Selector 
+- Transport over proton-j project
+    - Simple HTTP   
